@@ -192,6 +192,13 @@ namespace WhatsAppApi
             }
         }
 
+        public string sendMessageLocation(string to, double Longitude, double Latitude, string Details=null, string Url=null)
+        {
+            var tmpMessage = new FMessage(GetJID(to), true) { longitude = Longitude, latitude = Latitude, location_url = Url, location_details = Details, media_wa_type = FMessage.Type.Location};
+	    this.SendMessage(tmpMessage, this.hidden);
+            return tmpMessage.identifier_key.ToString();
+	}
+    
         protected FMessage getFmessageAudio(string to, byte[] audioData, AudioType audtype)
         {
             to = GetJID(to);
