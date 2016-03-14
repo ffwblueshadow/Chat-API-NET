@@ -200,8 +200,15 @@ namespace WhatsAppApi
         /// <param name="flags">Optional flags</param>
         private void Socket_send(string data, int length, int flags)
         {
+          if (this.socket != null && this.socket.Connected)
+            {
             var tmpBytes = WhatsApp.SYSEncoding.GetBytes(data);
             this.socket.Send(tmpBytes);
+            }
+             else
+            {
+                throw new ConnectionException("Socket not connected");
+            }
         }
 
         /// <summary>
@@ -225,7 +232,10 @@ namespace WhatsAppApi
         /// </summary>
         public bool SocketStatus
         {
-            get { return socket.Connected; }
+            get { 
+            	return socket.Connected; 
+            	
+            }
         }
     }
 }
